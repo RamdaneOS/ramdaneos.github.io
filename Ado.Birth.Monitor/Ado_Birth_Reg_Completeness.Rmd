@@ -26,12 +26,12 @@ library(lubridate)   # Work with dates in R
 library(readr)       # Import files in R
 library(sp)          # Work with goeo-spatial data in R
 library(sf)          # Work with goeo-spatial data in R
-library(survey)
-library(sjlabelled)
+library(survey)      # Work with complex survey data
+library(sjlabelled)  # Manipulate labels in R
 library(dplyr)
-library(knitr)
+library(knitr)       # Produce nice tables outputs
 library(kableExtra)
-library(ggrepel)
+library(ggrepel)     
 ```
 
 # 1. Load 2011 and 2017 DHS datasets for Benin
@@ -40,40 +40,115 @@ The code will follow as much as possible the same nomenclature as that of the DH
 
 ```{r "load_datasets", message=FALSE, warning=FALSE}
 
+#DHS 1996
+
+#birth recode data 
+
+#bjbr31fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_1996_DHS_10052020_1218_141900/BJBR31DT/BJBR31FL.dta")
+
+
+#women recode data
+
+#bjir31fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_1996_DHS_10052020_1218_141900/BJIR31/BJIR31.DAT")
+
+
+#household member recode data 
+
+#bjpr31fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_1996_DHS_10052020_1218_141900/BJPR31DT/BJPR31FL.DTA")
+
+#DHS 2001
+
+#birth recode data 
+
+#bjbr41fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_2001_DHS_09012020_1312_141900/BJBR41DT/BJBR41FL.dta")
+
+
+#women recode data
+
+#bjir41fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_2001_DHS_09012020_1312_141900/BJIR41DT/BJIR41FL.DTA")
+
+
+#household member recode data 
+
+#bjpr41fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_2001_DHS_09012020_1312_141900/BJPR41DT/BJPR41FL.DTA")
+
+#DHS 2006
+
+#birth recode data 
+
+#bjbr51fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_2006_DHS_09012020_138_141900/BJBR51DT/BJBR51FL.DTA")
+
+#women recode data
+
+#bjir51fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_2006_DHS_09012020_138_141900/BJIR51/BJIR51.DAT")
+
+#household member recode data 
+
+#bjpr51fl <- 
+#read_dta(
+#"/Users/ramoudaneorousannou/Downloads/BJ_2006_DHS_09012020_138_141900/BJPR51DT/BJPR51FL.DTA")
+
+#DHS 2011
+
 #birth recode data 
 
 bjbr61fl <- 
 read_dta(
 "/Users/ramoudaneorousannou/Downloads/BJ_2011-12_DHS_09012020_1317_141900/BJBR61DT/BJBR61FL.DTA")
-#DHS 2011
-
-
-bjbr71fl <- 
-read_dta("/Users/ramoudaneorousannou/Downloads/Dhs_data/BJBR71DT/BJBR71FL.DTA") # DHS 2017
 
 #women recode data
 
 bjir61fl <- 
 read_dta(
 "/Users/ramoudaneorousannou/Downloads/BJ_2011-12_DHS_09012020_1317_141900/BJIR61DT/BJIR61FL.DTA")
-#DHS 2011
-
-bjir71fl <- 
-read_dta("/Users/ramoudaneorousannou/Downloads/Dhs_data/BJIR71DT/BJIR71FL.DTA") #DHS 2017
-
 
 #household member recode data 
 
 bjpr61fl <- 
 read_dta(
 "/Users/ramoudaneorousannou/Downloads/BJ_2011-12_DHS_09012020_1317_141900/BJPR61DT/BJPR61FL.DTA")
-#DHS 2011
+
+
+# DHS 2017
+
+#birth recode data 
+
+bjbr71fl <- 
+read_dta("/Users/ramoudaneorousannou/Downloads/Dhs_data/BJBR71DT/BJBR71FL.DTA") 
+
+#women recode data
+
+bjir71fl <- 
+read_dta("/Users/ramoudaneorousannou/Downloads/Dhs_data/BJIR71DT/BJIR71FL.DTA") 
+
+
+#household member recode data
 
 bjpr71fl <- 
-read_dta("/Users/ramoudaneorousannou/Downloads/Dhs_data/BJPR71DT/BJPR71FL.DTA") #DHS 2017
+read_dta("/Users/ramoudaneorousannou/Downloads/Dhs_data/BJPR71DT/BJPR71FL.DTA") 
 
 
 ```
+
+
+The DHS started to include the variable on birth registration/birth certificate possession (variable HV140) from DHS 5 onwards. 
+
 
 # 2. Data.Prepare function
 
@@ -177,6 +252,17 @@ Data.Prepare <- function(Birth, Women, HouseholdM) {
 
 ```{r "Apply_Data.Prepare_function", message=FALSE, warning=FALSE}
 
+
+# Transform 1996 datasets
+#bjbrirpr31fl <- Data.Prepare(Birth = bjbr31fl, Women = bjir31fl, HouseholdM = bjpr31fl)
+
+# Transform 2001 datasets
+#bjbrirpr41fl <- Data.Prepare(Birth = bjbr41fl, Women = bjir41fl, HouseholdM = bjpr41fl)
+
+# Transform 2006 datasets
+#bjbrirpr51fl <- Data.Prepare(Birth = bjbr51fl, Women = bjir51fl, HouseholdM = bjpr51fl)
+
+
 # Transform 2011 datasets
 bjbrirpr61fl <- Data.Prepare(Birth = bjbr61fl, Women = bjir61fl, HouseholdM = bjpr61fl)
 
@@ -190,9 +276,9 @@ bjbrirpr71fl <- Data.Prepare(Birth = bjbr71fl, Women = bjir71fl, HouseholdM = bj
 
 # 3. Birth registration completeness by age group of mothers
 
-## 3.1.CU5WBCOR function
+## 3.1.U5BCOR function
 
-Function CU5WBCOR for children under 5 years of age who have a birth certificate or are registered is a function which calculates the indicator according to different scenarios. The function takes three arguments:
+Function U5BCOR for children under 5 years of age who have a birth certificate or are registered is a function which calculates the indicator according to different scenarios. The function takes three arguments:
 
 * **data** argument, output from previous Data.Prepare function,
 
@@ -202,10 +288,12 @@ Function CU5WBCOR for children under 5 years of age who have a birth certificate
 
 ```{r "Birth_cert_reg_comp_by_agegroup", message=FALSE, warning=FALSE}
 
-# CU5WBCOR for "Children Under age 5 Who have Birth Certificate or are Registered" 
+# U5BCOR for "Children Under age 5 Who have Birth Certificate or are Registered" 
 # is a function that calculate the indicator under various scenario
 
-CU5WBCOR <- function(data, var1, var2 = NULL, caption) { 
+U5BCOR <- function(data, var1, var2 = NULL, caption) { 
+require(dplyr)
+  
 if(is.null(var2)) {
 var2 <- data$hv024  
   
@@ -219,11 +307,11 @@ birth_cert_or_reg <-
 survey::svyby(formula = var1, by = var2, DHSdesign, svymean, na.rm =  TRUE, 
                               vartype = c("se","ci"))
 
-table_CU5WBC <-
+table_U5BC <-
 birth_cert_or_reg %>%
 rename(Region = by) %>%
 kable(format = "pipe", caption = caption, row.names = FALSE)
-return(table_CU5WBC)
+return(table_U5BC)
 } else {
    
 # Complex sample design parameters
@@ -237,30 +325,30 @@ survey::svyby(formula = var1, by = var2, DHSdesign, svymean, na.rm =  TRUE,
                               vartype = c("se","ci"))
 
 if (any(names(birth_cert_or_reg) == "hv024")) { 
-table_CU5WBC <-
+table_U5BC <-
 rename(birth_cert_or_reg, Region = hv024)
-table_CU5WBC <-
-kable(table_CU5WBC, format = "pipe", caption = caption, row.names = FALSE)
+table_U5BC <-
+kable(table_U5BC, format = "pipe", caption = caption, row.names = FALSE)
 } else {
-table_CU5WBC <-
+table_U5BC <-
 kable(birth_cert_or_reg, format = "pipe", caption = caption, row.names = FALSE)}
 
 if(any(names(birth_cert_or_reg)) %in% c("birth_cert", "birth_reg", "hv024", "agegroup_5",  "agegroup_10", "se", "ci_l", "ci_u")) {
 
-table_CU5WBC <-
-rename(birth_cert_or_reg, c( "Birth Cert" = "birth_cert", 
-                             "Birth Reg" = "birth_reg" , 
-                             "Region" = "hv024" ,
-                             "Age Group" = "agegroup_5" , 
-                             "Age Group" = "agegroup_10", 
-                             "SE" = "se" , 
-                             "CI_L" = "ci_l" , 
-                             "CI_U" = "ci_u" ))}   else {
-table_CU5WBC <-
+birth_cert_or_reg$Birth_Cert <- paste(birth_cert_or_reg$birth_cert) 
+birth_cert_or_reg$Birth_Reg  <- paste(birth_cert_or_reg$birth_reg) 
+birth_cert_or_reg$Region     <- paste(birth_cert_or_reg$hv024)
+birth_cert_or_reg$Age_Group  <- paste(birth_cert_or_reg$agegroup_5) 
+birth_cert_or_reg$Age_Group  <- paste(birth_cert_or_reg$agegroup_10) 
+birth_cert_or_reg$SE         <- paste(birth_cert_or_reg$se) 
+birth_cert_or_reg$CI_L       <- paste(birth_cert_or_reg$ci_l) 
+birth_cert_or_reg$CI_U       <- paste(birth_cert_or_reg$ci_u)}   else {
+
+table_U5BC <-
 kable(birth_cert_or_reg, format = "pipe", caption = caption, row.names = FALSE)}
  
 
-return(table_CU5WBC)  
+return(table_U5BC)  
 }
 }
 
@@ -268,29 +356,29 @@ return(table_CU5WBC)
 ```
 
 
-```{r "Apply_CU5WBCOR_function", message=FALSE, warning=FALSE}
+```{r "Apply_U5BCOR_function", message=FALSE, warning=FALSE}
    
 
 
-CU5WBCOR(data = bjbrirpr61fl, var1 = ~birth_cert, caption = "Children under age 5
+U5BCOR(data = bjbrirpr61fl, var1 = ~birth_cert, caption = "Children under age 5
          who have birth certificate by region (DHS 2011)")
 
 
-CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_cert, caption = "Children under age 5 
+U5BCOR(data = bjbrirpr71fl, var1 = ~birth_cert, caption = "Children under age 5 
          who have birth certificate by region (DHS 2017)")
 
 
-CU5WBCOR(data = bjbrirpr61fl, var1 = ~birth_reg,
+U5BCOR(data = bjbrirpr61fl, var1 = ~birth_reg,
        caption = "Children under age 5 who are registered by region (DHS 2011)")
 
-CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_reg,
+U5BCOR(data = bjbrirpr71fl, var1 = ~birth_reg,
        caption = "Children under age 5 who are registered by region (DHS 2017)")
 
 
 # tabulate indicator "children under age 5 who have birth certificate"
 # by 5-year agegroup of mother at national level
 
-CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~agegroup_5, 
+U5BCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~agegroup_5, 
        caption = "Children under age 5
          who have birth certificate by 5-year agegroup of mother at national level (DHS 2017)")
 
@@ -298,7 +386,7 @@ CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~agegroup_5,
 # tabulate indicator "children under age 5 who have birth certificate"
 # by 10 years agegroup of mother at national level
 
-CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~agegroup_10, 
+U5BCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~agegroup_10, 
        caption = "Children under age 5
          who have birth certificate by 10-year agegroup of mother at national level (DHS 2017)")
 
@@ -307,7 +395,7 @@ CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~agegroup_10,
 # and agegroup of mother
 
 
-CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
+U5BCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
        caption =  "Children under age 5
          who have birth certificate by region and 5-year agegroup of mother (DHS 2017)")
 
@@ -316,29 +404,29 @@ CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5,
 # tabulate indicator "children under age 5 who have birth certificate" by region 
 # and 10 years agegroup of mother
 
-CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_10, 
+U5BCOR(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_10, 
        caption =  "Children under age 5
          who have birth certificate by region and 10-year agegroup of mother (DHS 2017)")
 
 # tabulate indicator "children under age 5 who are registered"
 # by 10 years agegroup of mother at national level
 
-CU5WBCOR(data = bjbrirpr71fl, var1 = ~birth_reg , var2 = ~hv024+agegroup_10, 
+U5BCOR(data = bjbrirpr71fl, var1 = ~birth_reg , var2 = ~hv024+agegroup_10, 
        caption =  "Birth registration completeness
       by 10-year agegroup of mother (DHS 2017)")
 
 
 ```
  
-## 3.2 Plot_CU5WBC and Plot_CU5WBR functions
+## 3.2 Plot_U5BC and Plot_CU5WBR functions
 
-This function plots the indicator "children under age 5 who have birth certificate or registered" at subnational level. Depending on the indicator you want to visualize, the function takes the same arguments as the CU5WBCOR function.
+This function plots the indicator "children under age 5 who have birth certificate or registered" at subnational level. Depending on the indicator you want to visualize, the function takes the same arguments as the U5BCOR function.
 
-```{r "Plot_CU5WBCOR_function", message=FALSE, warning=FALSE}
+```{r "Plot_U5BCOR_function", message=FALSE, warning=FALSE}
 
-# the format of the output from the CU5WBCOR function isn't suitable for ploting with ggplot because it's a Kable. Let's rewrite the function so it gives us a data frame. 
+# the format of the output from the U5BCOR function isn't suitable for ploting with ggplot because it's a Kable. Let's rewrite the function so it gives us a data frame. 
 
-CU5WBCOR_1 <- function(data, var1, var2 = NULL) { 
+U5BCOR_df <- function(data, var1, var2 = NULL) { 
 if(is.null(var2)) {
 var2 <- data$hv024  
   
@@ -352,10 +440,10 @@ birth_cert_or_reg <-
 survey::svyby(formula = var1, by = var2, DHSdesign, svymean, na.rm =  TRUE, 
                               vartype = c("se","ci"))
 
-table_CU5WBC <-
+table_U5BC <-
 birth_cert_or_reg %>%
 rename(Region = by) 
-return(table_CU5WBC)
+return(table_U5BC)
 } else {
    
 # Complex sample design parameters
@@ -369,29 +457,29 @@ survey::svyby(formula = var1, by = var2, DHSdesign, svymean, na.rm =  TRUE,
                               vartype = c("se","ci"))
 
 if (any(names(birth_cert_or_reg) == "hv024")) { 
-table_CU5WBC <-
+table_U5BC <-
 birth_cert_or_reg %>%
 rename(Region = hv024) 
 } else {
-table_CU5WBC <-
+table_U5BC <-
 birth_cert_or_reg }
-return(table_CU5WBC)  
+return(table_U5BC)  
 }
 }
 
 # plot Children under 5 with birth certificate 
 
-Plot_CU5WBC <- function(data, var1, var2, var3, caption) {
+Plot_U5BC <- function(data, var1, var2, var3, caption) {
 
-data_CU5WBC <-
-CU5WBCOR_1(data, var1 = var1 , var2 = var2 ) 
+data_U5BC <-
+U5BCOR_df(data, var1 = var1 , var2 = var2 ) 
 
-plot_CU5WBC <-
-ggplot(data_CU5WBC, aes(x = agegroup_5, y = birth_cert, color = Region)) + geom_point() +
+plot_U5BC <-
+ggplot(data_U5BC, aes(x = agegroup_5, y = birth_cert, color = Region)) + geom_point() +
 labs(title = caption, x = NULL, y = NULL, color = "Regions") + 
 scale_y_continuous(labels = scales::percent)  
 
-return(plot_CU5WBC)
+return(plot_U5BC)
 }
 
 # plot children under 5 who are registered
@@ -399,7 +487,7 @@ return(plot_CU5WBC)
 Plot_CU5WBR <- function(data, var1, var2, var3, caption) {
 
 data_CU5WBR <-
-CU5WBCOR_1(data, var1 = var1 , var2 = var2 ) 
+U5BCOR_df(data, var1 = var1 , var2 = var2 ) 
 
 plot_CU5WBR <-
 ggplot(data_CU5WBR, aes(x = agegroup_5, y = birth_reg, color = Region)) + geom_point() +
@@ -414,13 +502,34 @@ return(plot_CU5WBR)
 ### 3.2.1 Plot Birth Certificate Possession by region
 
 ```{r "Plot_Birth_cert_comp_by_agegroup", message=FALSE, warning=FALSE}
+
 #plot birth certificate possession by region for 5-year age groups
-Plot_CU5WBC(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
+#Plot_U5BC(data = bjbrirpr31fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
+ #           caption = "Birth certificate possession by region and 5-year agegroup 
+ #                                      of mother (DHS 1996)")
+
+#plot birth certificate possession by region for 5-year age groups
+#Plot_U5BC(data = bjbrirpr41fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
+#            caption = "Birth certificate possession by region and 5-year agegroup 
+#                                       of mother (DHS 2001)")
+
+#plot birth certificate possession by region for 5-year age groups
+#Plot_U5BC(data = bjbrirpr51fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
+#            caption = "Birth certificate possession by region and 5-year agegroup 
+#                                       of mother (DHS 2006)")
+
+#plot birth certificate possession by region for 5-year age groups
+Plot_U5BC(data = bjbrirpr61fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
+            caption = "Birth certificate possession by region and 5-year agegroup 
+                                       of mother (DHS 2011)")
+
+#plot birth certificate possession by region for 5-year age groups
+Plot_U5BC(data = bjbrirpr71fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
             caption = "Birth certificate possession by region and 5-year agegroup 
                                        of mother (DHS 2017)")
 
 
-Plot_CU5WBC(data = bjbrirpr61fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
+Plot_U5BC(data = bjbrirpr61fl, var1 = ~birth_cert , var2 = ~hv024+agegroup_5, 
             caption = "Birth certificate possession by region and 5-year agegroup 
                                        of mother (DHS 2011)")
 ```
@@ -442,21 +551,60 @@ Plot_CU5WBR(data = bjbrirpr61fl, var1 = ~birth_reg , var2 = ~hv024+agegroup_5,
                                         of mother (DHS 2011)")
 ```
 
-# 4. Adolescent Birth Rate and Birth Registration Completeness by Region 
+# 4. Adolescent Birth Rate and Birth Registration Completeness / Birth certificate possession by Region 
 
-## 4.1 Tabulate Age Specific Fertility Rate and Birth Certificate Possession by Region
+## 4.1. Functions for Adolescent Birth Rate and Birth Registration Completeness / Birth certificate possession  by Region 
+
 
 ```{r "Birth_cert_reg_comp_by_ABR_function", message=FALSE, warning=FALSE}
 
 
 
-ABRC <- function(WomenData, DataPrepared, indicator) { 
+ABRC <- function(WomenData, DataPrepared, indicator, caption) { 
    
 # tabulate indicator "children under age 5 who have certificate or are registered"
 # by 5-year agegroup of mother and region 
 
 birth_cert_or_reg <- 
-CU5WBCOR_1(data = DataPrepared, var1 = indicator, var2 =  ~hv024+agegroup_5) %>%
+U5BCOR_df(data = DataPrepared, var1 = indicator, var2 =  ~hv024+agegroup_5) %>%
+rename(hv024 = Region)
+
+
+#calculating the age specific fertility rate 
+asfr <- fert(women, Indicator = "asfr", Cluster = "v021", Class = "v024")
+
+#creating a matching variable for the fertility rate table
+asfr$matching <- paste(asfr$Class, asfr$AGE, sep = "-")
+
+#creating a matching variable for the birth certificate or registration by region table
+birth_cert_or_reg$matching <-
+paste(birth_cert_or_reg$hv024, 
+      birth_cert_or_reg$agegroup_5, sep = "-")
+
+#joining asfr table to birth_cert_or_reg table
+asfr_cert_or_reg <- asfr %>%
+inner_join(birth_cert_or_reg, by = "matching")
+
+asfr_cert_or_reg <-
+rename(asfr_cert_or_reg, Region = Class)
+       
+asfr_cert_or_reg <-
+select(asfr_cert_or_reg, -LCI, -UCI, -RSE, -matching, -agegroup_5, -hv024)
+asfr_cert_or_reg <-
+kable(asfr_cert_or_reg, format = "pipe", caption = caption)
+return(asfr_cert_or_reg)
+}
+
+
+
+
+ABRC_df <- function(WomenData, DataPrepared, indicator) { 
+   
+# tabulate indicator "children under age 5 who have certificate or are registered"
+# by 5-year agegroup of mother and region 
+
+birth_cert_or_reg <- 
+U5BCOR_df(data = DataPrepared, var1 = indicator, var2 =  ~hv024+agegroup_5) %>%
 rename(hv024 = Region)
 
 
@@ -474,19 +622,46 @@ paste(birth_cert_or_reg$hv024,
 #joining asfr table to birth_cert_or_reg table
 asfr_cert <- asfr %>%
 inner_join(birth_cert_or_reg, by = "matching")
-
-asfr_cert <-
-rename(asfr_cert, Region = Class)
-       
-asfr_cert <-
-select(asfr_cert, -LCI, -UCI, -RSE, -matching, -agegroup_5, -hv024)
-asfr_cert <-
-kable(asfr_cert, format = "pipe", caption = "Age Specific Fertility Rate and 
-      Birth Certificate Possession")
 return(asfr_cert)
 }
 
+plot_ABRCert <- function(WomenData, DataPrepared, indicator = ~birth_cert) { 
+  
+bj_asfr_cert <- ABRC_df (WomenData, DataPrepared, indicator)
+bj_asfr_cert %>%
+filter(agegroup_5 == "15-19") %>%
+ggplot(aes(x = birth_cert, y = ASFR)) +
+geom_point() +
+labs(title =  NULL, 
+     x = "Birth Certificate Possession", y = "Adolescent Birth Rate", 
+     color = "Regions") +
+scale_x_continuous(labels = scales::percent,
+                   expand = c(0.5, 0), limits = c(0,NA)) +
+geom_text_repel(size = 3, aes(label = hv024), 
+          hjust = -0.1, vjust = -0.3, position = position_dodge(width=2), 
+          color = "black")
+}
+
+plot_ABRReg <- function(WomenData, DataPrepared, indicator = ~birth_reg) { 
+  
+bj_asfr_reg <- ABRC_df (WomenData, DataPrepared, indicator)
+bj_asfr_reg %>%
+filter(agegroup_5 == "15-19") %>%
+ggplot(aes(x = birth_reg, y = ASFR)) +
+geom_point() +
+labs(title =  NULL, 
+     x = "Birth Registration Completeness", y = "Adolescent Birth Rate", 
+     color = "Regions") +
+scale_x_continuous(labels = scales::percent,
+                   expand = c(0.5, 0), limits = c(0,NA)) +
+geom_text_repel(size = 3, aes(label = hv024), 
+          hjust = -0.1, vjust = -0.3, position = position_dodge(width=2), 
+          color = "black")
+}
+
 ```
+
+## 4.2 Tabulate Age Specific Fertility Rate and Birth Certificate Possession by Region
 
 ```{r "Apply_ABRC_function", message=FALSE, warning=FALSE}
 #reloading women dataset
@@ -494,26 +669,28 @@ return(asfr_cert)
 women <- 
 read_dta("/Users/ramoudaneorousannou/Downloads/Dhs_data/BJIR71DT/BJIR71FL.DTA")
 
-bj_abr <- ABRC(WomenData = women, DataPrepared = bjbrirpr71fl, indicator = ~birth_cert)
+(bj_abrcert <- ABRC(WomenData = women, DataPrepared = bjbrirpr71fl, indicator = ~birth_cert, caption = "Adolescent Birth Rate and Birth Certificate Possession"))
 
-bj_abr 
+
+
+
 ```
 
-```{r "Birth_cert_reg_comp_by_ABR", message=FALSE, warning=FALSE}
+```{r "Birth_cert_reg_comp_by_ABR", message=FALSE, eval = FALSE , include= FALSE, warning=FALSE}
 
 
 # tabulate indicator "children under age 5 who are registered"
 # by 5-year agegroup of mother and region 
 
 birth_cert_by_region_agegroup_5 <- 
-CU5WBCOR_1(data = bjbrirpr71fl, var1 = ~birth_cert, var2 =  ~hv024+agegroup_5) %>%
+U5BCOR_df(data = bjbrirpr71fl, var1 = ~birth_cert, var2 =  ~hv024+agegroup_5) %>%
 rename(hv024 = Region)
 
 # tabulate indicator "children under age 5 who are registered"
 # by agegroup of mother at national level
 
 birth_reg_nat_agegroup_5 <- 
-CU5WBCOR_1(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~agegroup_5) 
+U5BCOR_df(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~agegroup_5) 
 
 
 # tabulate indicator "children under age 5 who are registered" by region 
@@ -521,7 +698,7 @@ CU5WBCOR_1(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~agegroup_5)
 
 
 birth_reg_by_region_agegroup_5  <- 
-CU5WBCOR_1(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~hv024+agegroup_5) %>%
+U5BCOR_df(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~hv024+agegroup_5) %>%
 rename(hv024 = Region)
 
 
@@ -529,7 +706,7 @@ rename(hv024 = Region)
 # and 10-year agegroup of mother
 
 birth_reg_by_region_agegroup_10 <- 
-CU5WBCOR_1(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~hv024+agegroup_10) %>%
+U5BCOR_df(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~hv024+agegroup_10) %>%
 rename(hv024 = Region)
 
 
@@ -558,73 +735,39 @@ inner_join(birth_cert_by_region_agegroup_5, by = "matching")
 ```
 
 
-## 4.2 Plot Adolescent Birth Rate and Birth Certificate Possession by Region
+## 4.3 Plot Adolescent Birth Rate and Birth Certificate Possession by Region
 
 ```{r "Plot_Birth_cert_reg_comp_by_ABDR", message=FALSE, warning=FALSE}
 
-(plot_bj_asfr_cert <-
-bj_asfr_cert %>%
-filter(agegroup_5 == "15-19") %>%
-ggplot(aes(x = birth_cert, y = ASFR)) +
-geom_point() +
-labs(title =  NULL, 
-     x = "Birth Certificate Possession", y = "Adolescent Birth Rate", 
-     color = "Regions") +
-scale_x_continuous(labels = scales::percent,
-                   expand = c(0.5, 0), limits = c(0,NA)) +
-geom_text_repel(size = 3, aes(label = hv024), 
-          hjust = -0.1, vjust = -0.3, position = position_dodge(width=2), 
-          color = "black"))
+plot_ABRCert(WomenData = women, DataPrepared = bjbrirpr71fl)
+
 
 ```
 
 
-## 4.3 Tabulate Adolescent Birth Rate and Birth Registration Completeness by Region (5-year age groups)
+## 4.4 Tabulate Adolescent Birth Rate and Birth Registration Completeness by Region (5-year age groups)
 
 ```{r "Birth_reg_comp_by_ABDR", message=FALSE, warning=FALSE}
 
-#creating a matching variable for the birth registration by region table
-birth_reg_by_region_agegroup_5$matching <-
-paste(birth_reg_by_region_agegroup_5$hv024, 
-      birth_reg_by_region_agegroup_5$agegroup_5, sep = "-")
-
-bj_asfr_reg <- bj_asfr %>%
-inner_join(birth_reg_by_region_agegroup_5, by = "matching") 
-
-
-bj_asfr_reg %>%
-rename(Region = Class) %>%
-select(-LCI, -UCI, -RSE, -matching, -agegroup_5, -hv024) %>%
-kable(format = "pipe", caption = "Adolescent Birth Rate and Birth 
-      Registration Completeness") 
+(bj_abrreg <- ABRC(WomenData = women, DataPrepared = bjbrirpr71fl, indicator = ~birth_reg,
+                   caption = "Adolescent Birth Rate and Birth 
+                   Registration Completeness"))
 
 
 ```
 
-## 4.4 Plot Adolescent Birth Rate and Birth Registration Completeness by Region (5-year age groups)
+## 4.5 Plot Adolescent Birth Rate and Birth Registration Completeness by Region (5-year age groups)
 
 ```{r "Plot_Birth_reg_comp_by_ABDR", message=FALSE, warning=FALSE}
 
-
-(plot_bj_asfr_reg <-
-bj_asfr_reg %>%
-filter(agegroup_5 == "15-19") %>%
-ggplot(aes(x = birth_reg, y = ASFR)) +
-geom_point() +
-labs(title =  NULL, 
-     x = "Birth Registration Completeness", y = "Adolescent Birth Rate", 
-     color = "Regions") +
-scale_x_continuous(labels = scales::percent,
-                   expand = c(0, 0), limits = c(0,NA)) +
-geom_text_repel(size = 3, aes(label = hv024), 
-          hjust = -0.1, vjust = -0.3, position = position_dodge(width=2)))
+plot_ABRReg(WomenData = women, DataPrepared = bjbrirpr71fl)
 
 
 
 ```
 
 
-## 4.5 Modifcation of the ASFR function from DHS.rates package to calculate ASFR for 10-year age groups
+## 4.6 Modifcation of the ASFR function from DHS.rates package to calculate ASFR for 10-year age groups
 
 ```{r "ASFR_10_Function", message=FALSE, warning=FALSE, eval = TRUE}
 
@@ -894,6 +1037,11 @@ bj_asfr_10
 #creating a matching variable for the fertility rate table
 bj_asfr_10$matching <- paste(bj_asfr_10$Class, bj_asfr_10$AGE, sep = "-")
 
+
+birth_reg_by_region_agegroup_10 <- 
+U5BCOR_df(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~hv024+agegroup_10) %>%
+rename(hv024 = Region)
+
 #creating a matching variable for the birth registration completeness by region table (10 years agegroup)
 
 birth_reg_by_region_agegroup_10$matching <-
@@ -936,6 +1084,55 @@ geom_text_repel(size = 3, aes(label = hv024),
 ```
 
 
+```{r "chmort", message=FALSE, warning=FALSE, eval = TRUE}
+
+
+bj_chmort <- chmort(bjbr71fl, Class = "v024")
+
+bj_chmort <- 
+bj_chmort %>%
+filter( R %in% c(27.92, 20.63, 36.81, 26.76, 33.73, 19.13, 44.20, 14.67, 35.79, 19.05,  53.66, 31.98))
+
+birth_reg_by_region_agegroup_5  <- 
+U5BCOR_df(data = bjbrirpr71fl, var1 = ~birth_reg, var2 =  ~hv024+agegroup_5) %>%
+rename(hv024 = Region)
+
+#creating a matching variable for the fertility rate table
+bj_chmort$matching <- paste(bj_chmort$Class)
+
+
+#reloading women dataset
+
+bjir_asfr <- 
+read_dta("/Users/ramoudaneorousannou/Downloads/Dhs_data/BJIR71DT/BJIR71FL.DTA")
+
+#calculating the fertility rate 
+bj_asfr <- fert(bjir_asfr, Indicator = "asfr", Cluster = "v021", Class = "v024")
+
+#creating a matching variable for the fertility rate table
+bj_asfr$matching <- paste(bj_asfr$Class)
+
+
+bj_chmort <- bj_chmort %>%
+inner_join(bj_asfr, by = "matching")
+
+
+bj_chmort
+
+
+(plot_bj_chmort <-
+bj_chmort %>%
+filter(AGE == "15-19") %>%
+ggplot(aes(x = R, y = ASFR)) +
+geom_point() +
+labs(title =  NULL, 
+     x = "Neonatal Mortality Rate", y = "Adolescent Birth Rate", 
+     color = "Regions") +
+geom_text_repel(size = 3, aes(label = matching), 
+          hjust = -0.1, vjust = -0.3, position = position_dodge(width=2), 
+          color = "black"))
+
+```
 
 
 
