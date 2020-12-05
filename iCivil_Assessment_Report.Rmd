@@ -1,0 +1,622 @@
+---
+title: "Assessment of iCivil Pilot Implementation in Burkina Faso"
+author: 
+-  Ramoudane Orou Sannou, UNFPA Population Data Fellow
+-  Romesh Silva, UNFPA Technical Specialist (PDB)
+date: "December 2020"
+output: 
+  pdf_document: 
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    extra_dependencies: ["float"]
+csl: ieee-with-url.csl
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(fig.pos = "H", out.extra = "", fig.height = 3.5)
+options(knitr.kable.NA = '')
+```
+
+\newpage
+\thispagestyle{empty}
+\listoftables
+\listoffigures
+
+\newpage
+
+# Introduction 
+
+Civil registration and Vital Statistics systems (CRVS) are essential for monitoring progress on 67 Sustainable Development Goal (SDG) indicators and are directly linked to the achievement of 12 of the 17 SDGs. Civil registration is not only necessary to monitor the situation of women and children, but is also a form of protection as it ensures that individuals have a legal form of identification.
+
+ConVERGE is an initiative of the United Nations Population Fund (UNFPA) supported by the Center of Excellence on CRVS of the International Development Research Centre (IDRC) which involves for its initial phase countries such as Benin, Burkina Faso, Congo (Brazzaville), Senegal, Morocco, Tunisia, Jordan, Colombia, Ecuador and Guatemala. Its main objective is to support beneficiary countries in improving their civil registration systems and the production of vital statistics, with a special focus on gender. The ConVERGE program is committed to supporting the process of modernising the Burkinabe civil registry system with the ultimate aim of routinely producing gender-specific vital statistics. This support is done upstream through research on the knowledge, practices and socio-cultural norms that determine the registration of vital events and downstream through financial and technical support for the process of modernising the civil registration system and producing vital statistics. 
+
+Burkina Faso has resolutely turned towards modernizing its civil registration system through the use of ICTs, with a focus on birth registration. After having conducted an assessment of the modern civil registration systems already in use in the country, the government selected iCivil as the standard system to be rolled-out throughout its territory. iCivil is a suite of tools consisting of smartphones distributed in maternity wards, computers, printers and other registration tools installed in civil registration centers and a central server located at the Directorate-General for the Modernisation of Civil Registration (DGMEC) in the capital city which receives data from all over the country. Smartphones are used by health workers in maternity wards to systematically register births that take place on their premises, while computers installed in the civil registration centres makes it possible to print out the birth certificate. As for the server at DGMEC, it stores data that could be used to produce vital statistics.
+
+It is widely accepted that Information and Communications Technology (ICT) solutions have the potential to provide transformative improvements in CRVS systems based on their ability to extend registration coverage, standardise, streamline and  accelerate civil registration and vital statistics processes, integrate data from multiple systems and securely store data at scale, all in a cost-effective way [@CRVSDGB]. However, the digitisation of a CRVS system is a long, multi-stage process which is supposed to comply with international standards and regulations in this field.
+
+In order to support the government of Burkina Faso in modernizing its CRVS system, UNFPA financed the deployment of iCivil in a few pilot sites as part of its Innovation Fund. The ConVERGE team provided technical follow-up to DGMEC from the selection of the iCivil system by the government of Burkina Faso to its deployment and the training of health and civil registration professionals in its use in the pilot sites financed by the Innovation Fund. This report is therefore an attempt to assess the technology based on the field experiences of the ConVERGE team in order to better support the government in its quest to digitise the Burkinabe CRVS system. 
+
+# Objectives
+
+The first objective of this report is :
+
+* To review the implementation of iCivil in Burkina Faso by looking at the:
+
+  * Expansion of iCivil to rural areas,
+ 
+  * Expansion of iCivil to incorporate marriage and death registration,
+ 
+  * Potential to integrate iCivil data with social norms field research data. 
+
+* To Assess the completeness and quality of data collected through the iCivil platform,
+  
+* To Assess the feasibility of producing vital statistics in line with the UN Principles and,
+  
+* To Provide recommendations on Vital Statistics Systems, Rev. 3, 2014
+
+
+```{r "load_packages", message=FALSE, echo=FALSE, warning=FALSE}
+library(bookdown)    # Authoring technical documents
+library(readxl)      # Import .xlsx file into R
+library(tidyverse)   # Data manipulation & vizualization
+library(plyr)        # Split / combine data
+library(naniar)      # Deal with missing data
+library(lubridate)   # Work with dates in R
+library(sp)          # Work with goeo-spatial data in R
+library(sf)          # Work with goeo-spatial data in R
+library(ggspatial)   # Work with goeo-spatial data in R
+library(pointblank)  # Data validation 
+library(knitr)       # Produce nice tables outputs
+library(knitr)       # Produce nice tables outputs
+library(kableExtra)  # Produce complex tables
+```
+
+# Technical Standards and Guidance on CRVS Digitization and Vital Statistics
+
+Much of the literature on civil registration tends to prioritize birth registration. However, civil registration includes many other types of vital events such as marriages, divorces and deaths. A comprehensive CRVS system is one that integrates all of these events and thus produces demographic data and statistics without the need for periodic surveys. In this report, we adopt the plethora of literature on the digitalization of birth registration while broadening the context to encompass marriage and death registration.
+
+World Bank Group's 2018 ID4D Global Dataset generates an estimate that one billion people in the world do not have official proof of identity. Lack of ID pose barriers for individuals in accessing basic services, as well as for countries to efficiently deliver them. The data also reveals that, out of the 1 billion people without legal identity, most live in Sub-Saharan Africa, nearly half are under the national ID age of their country, and more than half are of lower to middle income backgrounds. In the interest of an effective and continued progress of closing the coverage gap, efficient and sustainable CRVS systems are acutely needed [@Desai].
+
+The Sustainable Development Goals (SDGs) include a dedicated target (16.9) on birth registration under Goal 16: provide legal identity for all, including birth registration, by 2030. This target is complemented by Goal 17.9, which calls for support to build statistical capacity to establish strong national vital registration systems. UNICEF estimates that an average of one in four children under five (166 million) is not registered. And even when they are, they may not have proof of registration, bringing to 237 million the number of children under five worldwide who do not have a birth certificate. Increasing levels of birth registration will therefore not be enough to solve this problem. Steps must also be taken to strengthen the quality of civil registration systems in order to achieve universal coverage, continuity, confidentiality and regular dissemination of data [@Unicef].
+
+The third revision of Principles and Recommendations for a Vital Statistics System provides guidance on establishing a functioning system for collecting, processing and disseminating vital statistics; improving sources of vital statistics, focusing primarily on the civil registration system and its components. It presents vital statistics and civil registration as separate entities that should be components of a coordinated and coherent system for registering and producing vital statistics. It recommends that equal importance must be given to recording births and deaths as a legal exercises and for vital statistics production. In addition, there should be a smooth interconnection between civil registration and contemporary identity management systems to add more dimension to the structure and functioning of the civil registration and vital statistics system [@UNDESA].
+
+In the same vein, the African Programme for the Accelerated Improvement of Civil Registration and Vital Statistics (APAI-CRVS) distingishes three main stages for the impletation of a CRVS digitazation process. The preparation phase should serve to define a long term vision and to develop a business case for CRVS digitization. The analysis and design phase is where all assessment are made and system requirements are defined. The implementation planning phase is used to document the CRVS digitization implementation plan, to procure the digital CRVS system and address all management-related issues [@CRVSDGB]. Even with all of these steps, it is still necessary to have standards for the type of ICT technology to be deployed.
+
+The Inter-American Development Bank (IDB) and United Nations Children’s Fund (UNICEF) have identified a knowledge gap between the need and the capacity to design, develop, install, and operate ICT systems that will make vital events registration process more efficient and secure. From a technological perspective, this analysis focuses on three main elements: database structure and semantics, system backup, encryption and network security.
+UNICEF and the IDB suggest that access to registry data should be limited even to the database administrator and recommend two potential alternatives for the database structure: (i) one record for all data, or (ii) multiple records for different types of data sets. Particular attention should be paid to the computational efficiency of the models, as databases can become very slow. It is also important to establish and maintain various backups to restore operations in the event of an ICT system failure. Both "at rest" and "in motion" data (data that is transferred through local and wide area networks) must be protected against unauthorized real-time interception, alteration or deletion by means of encryption. Standard encryption software must be used for data “in motion”. WiFi networks must be encrypted using up-to-date software. For the security of the system, a parallel protected guest WiFi network should be made available for visitors requiring regular changes of access passwords. Access to the registry's main ICT network should be restricted to authorized personnel, at the exclusion of external parties [@UnicefIDB]. 
+
+
+The use of ICT may assist in making birth registration timely, continuous, and permanent. It allows for quicker communication between the place of birth and the registry; and allows for records to be stored digitally rather than in paper form, which may be more easily destroyed and may make the capacity to retrieve records difficult. While ICT offers many possibilities to improve registration, the driving force should be on institutional and administrative capacity building on the supply side, and on raising awareness on the demand side. There is unanimous agreement that the foundation for upgrading the civil registration system should be the legal framework. A special attention should be paid to the privacy and confidentiality of the individual’s personal information and the conditions under which data will be verified or authenticated and can be shared. There is broad consensus that communication is key to success when a new way of doing things is introduced. People need to be comfortable with the changes and understand how these are managed. The presentation and implementation of ICT systems for vital events registration should be carefully considered in terms of the socio-cultural context of the society and the changing nature of the family and its dynamics, as well as the increasing need for interoperability between public organizations [@UnicefIDB]. 
+
+# Review of iCivil Implementation in Burkina Faso
+
+## Expansion from urban to rural areas
+
+The first uses of iCivil date back to 2015 in a clinic in the capital city, Ouagadougou. The mobile application could then only register births. Although the mobile application is now capable of registering marriages and deaths, it is still largely used for birth registration.  
+In its current version, iCivil has a mobile application for systematic birth registration that uses encrypted SMS messages. Information on each newborn is sent by SMS from the iCivil smartphone of the duly authorized health professional, after coupling to a unique and forgery-proof identifier/authentifier called ''Bubble Tag'' . The SMS is received instantly on the server of DGMEC. The SMS/Bubble Tag couple automatically fills in a birth form that is ready to be printed and signed by the competent authority. iCivil is now operational in 09 communes and is being installed in 06 other communes \@ref(fig:intro). Of the 09 operational communes, UNFPA financed the roll-out of iCivil  in six communes  \@ref(fig:load_icivil_data). Installing the iCivil system is a two-step process. The first step is to equip the maternity wards with smartphones containing the iCivil mobile application as well as the wristbands and ID cards that will be used to identify each newborn. Next, the local civil registration center receives a computer, a printer and other accessories to identify newborns’ ID cards and to print the corresponding birth certificate.  
+
+
+```{r "intro", message=FALSE, echo=FALSE, warning=FALSE, fig.cap="Presence of iCivil in the communes of Burkina Faso"}
+
+bf_rds_3 <- read_rds("/Users/ramoudaneorousannou/Downloads/gadm36_BFA_3_sf.rds")
+
+iCivil_Communes <- read_excel("/Users/ramoudaneorousannou/Downloads/iCivil_Communes.xls") %>%
+  rename(c(   "Province" = "NAME_1", 
+              "Commune" = "NAME_3")) 
+
+bf_rds_3_no_geom <- st_set_geometry(bf_rds_3, NULL) 
+
+
+bf_rds_3_1 <- bf_rds_3_no_geom %>%
+  left_join(iCivil_Communes, by = "NAME_3")
+
+
+bf_rds_3_2 <- bf_rds_3_no_geom %>%
+  inner_join(iCivil_Communes, by = "NAME_3")
+
+
+bf_rds_3 <- bf_rds_3 %>%
+  select("NAME_3", "geometry")
+
+bf_rds_3 <- bf_rds_3_1 %>%
+  left_join(bf_rds_3, by = "NAME_3" )
+
+
+(ggplot(data = bf_rds_3, aes(fill = Observation)) +
+  geom_sf(aes(geometry = geometry)) +
+  annotation_scale(location = "br", width_hint = 0.5) +
+  annotation_north_arrow(location = "br", height = unit(1, "cm"), which_north = "true", 
+                          pad_x = unit(0.5, "in"), pad_y = unit(0.5, "in"),
+                          style = north_arrow_fancy_orienteering) +
+  coord_sf(crs = st_crs(4326)) +
+  scale_fill_manual(values = c("#FFDB6D", "#00AFBB", "#999999")))
+       
+```     
+
+
+The expansion of iCivil from urban to rural areas makes it possible to assess its adoption by populations living in non-urban areas, most of whom have low levels of education and live far from civil registration centers. 
+The first iCivil server database provided to us has a total of 12 variables with information such as on the newborns' place of birth, the date birth and that of the mother. Our analysis of the first data export from the iCivil server shows that the volume of birth registration in urban areas far exceeds that in rural areas. However, with regard to the issuance of birth certificates, some rural communes seem to have higher rates. Although iCivil has been operating in Ouagadougou for 4 years, the birth certificate delivery rate remains low, at 18.02%. However, in the newly deployed UNFPA sites (mostly in rural areas), the rate of issuance of birth certificates seems higher after only 2 months. In Nouna we have a rate of 40.33%, in Kaya a rate of 38.31%. In Nanoro, the delivery rate remains very low, at 10.56%. Some other rural areas have a rate of 100%, but have only registered less than 12 births each \@ref(fig:declaration).
+
+
+```{r "load_icivil_data", message=FALSE, echo=FALSE, warning=FALSE}
+
+icivil_data_18_03 <- read_excel(path = "/Users/ramoudaneorousannou/Downloads/EXPORT-BD-ICIVIL-DGMEC_18mars2020_Final.xls", 
+                                sheet = "EXPORT", na = " ", col_names = TRUE)
+
+iCivil_Deployment <- read_excel("iCivil_Deployment.xlsx")
+iCivil_Deployment %>%
+kable(digits = 2, 
+        "latex",
+        booktabs = TRUE,
+        caption = "Deployed Equipment by HDSS Site") %>%
+  kable_styling(latex_options="scale_down")
+
+
+
+```
+
+
+```{r "tidy_icivil_data", message=FALSE, echo=FALSE, warning=FALSE}
+
+#Separating activation date from activation time of the smartphone
+
+icivil_data_18_03 <- separate(icivil_data_18_03, Date_activation,
+                              c("date_activation", "heure_activation"), sep = " ") 
+
+#Separating birth date from time of birth of the newborn
+
+icivil_data_18_03 <- separate(icivil_data_18_03, Date_heure,
+                              c("date_naissance", "heure_naissance"), sep = " ")
+
+# Separating birth date from time of birth of the mother
+
+icivil_data_18_03 <- separate(icivil_data_18_03, 
+                              "Date de naissance de la mère",
+                              c("date_naissance_mere", "heure_naissance_mere"), sep = " ")
+
+
+#selecting variables of interest 
+
+icivil_data_18_03 <- icivil_data_18_03 %>%
+ select("date_activation", 
+        "Sexe", 
+        "date_naissance", 
+        "Lieu de naissance", 
+        "GPS Lat.", 
+        "GPS Long.", 
+        "Déclaré par", 
+        "date_naissance_mere") %>%
+
+  #Variables are renamed according to the recommended standards in R.
+  
+  rename(c("date_naissance" = "date_naissance_enfant", 
+         "Lieu de naissance" = "lieu_naissance", 
+         "GPS Lat." = "lat", 
+         "GPS Long." = "long", 
+         "Déclaré par" = "declarant")) 
+ 
+ #head(icivil_data_18_03)
+  #str(icivil_data_18_03)
+  detach(package:plyr) 
+  # I detach plyr package to avoid errors while using the "group_by" function of dplyr
+```
+
+
+
+```{r "declaration", message=FALSE, echo=FALSE, warning=FALSE, fig.cap= "Birth certificate issuance by commune"} 
+
+icivil_data_18_03_declared_by_city <- 
+icivil_data_18_03 %>%
+group_by(lieu_naissance, !is.na(declarant)) %>%
+count() %>%
+rename(declaration = "!is.na(declarant)")
+
+#Births count by place of birth
+
+icivil_data_18_03_city_count <- icivil_data_18_03 %>%
+dplyr::group_by(lieu_naissance) %>%
+count() %>%
+rename(total_naissance = n)
+
+
+# Adding the total number of registered births in each municipality to the declaration table
+
+icivil_data_18_03_declared_by_city <- 
+full_join(icivil_data_18_03_declared_by_city,        
+icivil_data_18_03_city_count, by = "lieu_naissance" )
+
+# Computing the birth declaration rate by municipality (only municipalities
+# where birth certificates were issued by the civil registration center are
+# kept in this analysis)
+
+icivil_data_18_03_rate_declaration <- 
+icivil_data_18_03_declared_by_city %>%
+filter(declaration == TRUE) %>%
+mutate(taux_declaration = 100 *n / total_naissance)
+
+# Birth certificate issuance rate by commune
+
+(plot_declarations <-
+ggplot(icivil_data_18_03_rate_declaration, 
+aes(x = reorder(lieu_naissance, taux_declaration), y = taux_declaration)) + 
+geom_col(fill = "#00AFBB", colour = "black") +
+theme(plot.title = element_text(hjust = 0.5)) +
+coord_flip()+
+labs(title = NULL, x = NULL, y = NULL))
+
+
+```
+
+## Expansion to incorporate marriage and death registration data
+
+iCivil's mobile application now has modules for registering marriages and deaths. However, these two features are barely used. In order for a person to be able to register their marriage through iCivil, they must first have their birth registered in the system. Birth registration is the prerequisite for the registration of other vital events through iCivil. Although this feature will facilitate the integrated use of iCivil for the registration of all vital events in Burkina Faso, it complicates or even makes impossible the registration of vital events by older people who do not have their births registered in the system.  For example, during the roll-out of iCivil in the UNFPA pilot sites, it was planned that births of a sample of adults would be entered into the system so that their marriages could later be registered on it. However, the databases shared by DGMEC with us do not include any data on marriages and deaths. It is therefore hard to truly assess iCivil's capacity to increase access to marriages and deaths registration. 
+
+## Potential to integrate iCivil data with social norms field research 
+
+iCivil's focus on births - which is by far the most registered vital event in the country - does not allow for in-depth analysis of the potential social norms around the registration of all vital events. Nonetheless, it helps to confirm for example that in the case of births, it takes at least 7 days for the name of the newborn to be revealed. This social practice is very common in the country, especially in Muslim families, and makes it impossible for parents to leave the maternity ward with the newborn's birth certificate. In this case, the distance between the households and the civil registration centers still remains as a barrier to a complete birth registration process. 
+It should be noted, however, that with correct and accurate registration of data on newborn's parents, including their age, education level, religion and occupation, etc., the iCivil database could facilitate a multivariate analysis to find the socio-economic determinants of birth registration. 
+
+# Assessment of CRVS Digitization Process
+
+## Management and physical hosting of digital equipments
+
+The iCivil ecosystem consists of a server housed in the DGMEC premises and several smartphones in the maternity wards and other IT devices in civil registration centers.
+
+* **The server**
+
+The physical server of icivil is housed in a room of the DGMEC, the server is connected to a computer screen and a connection modem that allows the reception of data. It is located in a ventilated and air-conditioned room where access is restricted to authorized personnel only.  The server does not yet have a backup on another governmental site or on a government-owned cloud. Arrangements are being made by the government of Burkina Faso to provide a governmental cloud storage for iCivil registration data as suggested by an expert assessment report conducted by ECA. Plans to secure the current server room with a smoke detector and a fire extinguisher are also in sight.  
+
+* **Equipments and tools in maternity wards and civil registration centers**
+
+The safety of equipment in civil registration centers and maternity wards remains a delicate issue. During the training of health and civil registration workers in the use of iCivil, much emphasis was placed on the fragile nature of the iCivil tools handed to them and an appeal was made to their sense of responsibility to ensure the sustainable use of those tools. In some cases, the HDSS sites as close collaborators have been called upon to monitor the equipment until the DGMEC has the means to ensure systematic monitoring of the physical tools. Meanwhile, the reception or not of data on the DGMEC server makes it possible to know the operational centers and to remotely monitor zether or not an equipment is still functioning. 
+
+## Software ownership 
+
+Although the government of Burkina Faso has already acquired a iCivil license, it does not yet have the source code for the application, which remains under the control of the iCivil company. This could represent an obstacle to future development needs of the application to add new features or services. 
+We could not get access to the details on the initial agreement between the Burkinabe government and iCivil (the company) because that is what defines the terms of use. 
+However, the ultimate goal for the government should be to receive the source code from iCivil or, have it sent to a third party under well-defined legal conditions. 
+The debate on the ownership of the system remains open between the two parties, the real fear being that if iCivil (the company) was to disappear, the government would be forced to change its registration system with all the costs this would entail. 
+
+## Cost of deployment of iCivil for primary and secondary registration centers
+
+iCivil is deployed with a batch of ID cards (with unique identifiers) and wristbands for registering vital events. When the initial batch offered by UNFPA is exhausted, the DGMEC is responsible for purchasing additional inputs from the company to equip the centers in need. DGMEC is yet to find funding to guarantee the availability of sufficient quantities of these inputs to avoid stock shortages. With iCivil, it costs more or less 1 USD to issue a single birth certificate (including the cost of ID cards and the wristbands) and the monopoly of the production of the necessary inputs is held by iCivil.  The sustainability of the system will therefore largely depend on their availability. 
+
+# Assessment of iCivil data vis-a-vis Vital Statistics Standards
+ 
+## Adequacy of variables collected/digitized in iCivil platform
+
+
+On birth registration, iCivil collects many essential information on newborns, their mothers and fathers and birthplaces. For the registration of marriages and deaths, we do not have the types of variables that are collected to assess their adequacy.
+According to the third revision of UN Principles and Recommendations for a Vital Statistics System, the registration of a vital event can be by the place of occurrence or by the place of usual residence. iCivil has adopted the registration by the place of occurence. However, given the current security situation in Burkina Faso, with a large number of internal displacements of the population (especially from the Sahel region), it would be important to add a variable on the usual place of residence for analysis and planning purposes. 
+Additionally, since the registration (especially for birth) is done in two steps, it would be important to add a variable on the day the birth certificate was issued. This would make it possible to evaluate the percentage of registrations within the legal deadlines.  
+
+## Missing data issues 
+
+Missing values are ubiquitous in data and need to be carefully explored and properly handled before any analysis [@Nic]. From the first iCivil server data export, the missing data represent 36.5% of the data. This is mainly due to the low rate of complete birth registration i.e. when a newborn is systematically registered by a health official in maternity wards, most parents do not provide all the information needed to print the birth certificate. They must then go to the reference civil registration center (not necessarily the closest one) to complete the information and have the newborn's birth certificate printed. 
+In the 2nd export, almost 43% of the data were missing -  note an increase compared to the first export notwithstanding the new variables such as the age of the father and his occupation that were added to the data that was shared with UNFPA. Additionnally, it was impossible to identify the birthplaces of the newborns because the variable provided instead indicated the serial number of the iCivil smartphone used for registration and not the names of the communes.  
+
+
+
+```{r "missing_data_1", message=FALSE, echo=FALSE, warning=FALSE, fig.cap= "Heat map for missing data in the first data export"} 
+
+vis_miss(icivil_data_18_03, sort_miss = TRUE)
+
+```
+
+
+```{r "missing_second_data", message=FALSE, echo=FALSE, warning=FALSE, fig.cap= "Heat map for missing data in the second data export"}
+
+icivil_data_01_09 <- read_excel(path = "/Users/ramoudaneorousannou/Downloads/Export_BFA\ -\ iCivil\ _01-9-2020.xlsx", 
+                                sheet = "Export", na = " ", col_names = TRUE)
+#head(icivil_data_01_09)
+
+#separation de la date de naissance et de l'heure de naissance du nouveau-né //
+#Separating birth date from time of birth of the newborn
+
+icivil_data_01_09 <- separate(icivil_data_01_09, Date_heure,
+                              c("date_naissance", "heure_naissance"), sep = " ")
+
+#separation de la date de naissance et de l'heure de naissance de la maman // Separating birth date from time of birth of the mother
+
+icivil_data_01_09 <- separate(icivil_data_01_09, 
+                              "Date de naissance de la mère",
+                              c("date_naissance_mere", "heure_naissance_mere"), sep = " ")
+
+#separation de la date de naissance et de l'heure de naissance du papa // Separating birth date from time of birth of the father
+
+icivil_data_01_09 <- separate(icivil_data_01_09, 
+                              "Date de naissance du père",
+                              c("date_naissance_pere", "heure_naissance_pere"), sep = " ")
+
+#head(icivil_data_01_09)
+#str(icivil_data_01_09)
+
+#sélection des variables qui nous intéressent // selecting variables of interest 
+
+icivil_data_01_09 <- icivil_data_01_09 %>%
+ select("Sexe", 
+        "date_naissance", 
+        "Personnel Déclarant", 
+        "Déclaré par", 
+        "date_naissance_mere",
+        "Profession du père",
+        "Profession de la mère",
+        "date_naissance_pere") %>%
+
+  # On renome les variables suivant les standars conseillés sur R avec l'approche tidyverse // 
+  #Variables are renamed according to the recommended standards in R.
+
+  
+ dplyr::rename(c("date_naissance_enfant" = "date_naissance", 
+         "lieu_naissance" = "Personnel Déclarant", 
+         "profession_pere" = "Profession du père",
+         "profession_mere" = "Profession de la mère",
+         "declarant" = "Déclaré par")) 
+
+# Conversion de la date de naissance des enfants, de leurs peres et de leurs meres comme objet POSIXct //
+# Converting newborns' , dads' and mums' birth dates as POSIXct object 
+
+icivil_data_01_09$date_naissance_enfant <- as.POSIXct(icivil_data_01_09$date_naissance_enfant)
+
+icivil_data_01_09$date_naissance_mere <- as.POSIXct(icivil_data_01_09$date_naissance_mere) 
+
+icivil_data_01_09$date_naissance_pere <- as.POSIXct(icivil_data_01_09$date_naissance_pere) 
+
+#head(icivil_data_01_09)
+
+vis_miss(icivil_data_01_09, sort_miss = TRUE)
+```
+
+Using the first data export, we have analysed data missingness by birthplace. Some very important variables show very high missingness. This is the case, for example, of the date of birth of the mother of the newborn and the declarant, often missing by more than 75%, sometimes even 100%  in most birthplaces. 
+
+```{r "missing_data_2", message=FALSE, echo=FALSE, warning=FALSE, fig.cap= "Important missing variables by commune"} 
+
+icivil_data_18_03 <- icivil_data_18_03 %>% 
+ select("lieu_naissance", 
+        "Sexe", 
+        "date_naissance_enfant", 
+        "declarant", 
+        "date_naissance_mere")
+
+gg_miss_var(icivil_data_18_03, facet = lieu_naissance, show_pct = TRUE)
+
+```
+
+
+## Demographic Data Quality Assessment
+
+  * **_Sex ratio analysis:_** The sex ratio is used to designate the comparative rate of males and females within a sexually reproduced species, for a generation, or the offspring of an individual. Sex ratios for each age group are ratios of the number of males per 100 females:
+
+$$_5SR_x=100\cdot\frac{_5N^m_x}{_5N^f_x}$$
+
+where 5Nxi is the enumerated population of sex i between ages x and x + 5. However, in this case, we calculate the sex ratio only among newborns registered in iCivil without considering the age group up to 5 years old. Calculating sex ratios using birth counts gives the sex ratio at birth and it can give insights into the quality of birth registration data. Sex ratios at birth are displayed in the map of Figure 6 for the iCivil data. They show a high value of 118, 116 and 112 boys per 100 girls respectively for Tenkogodogo, Nanoro and Fada N'Gourma. The ratios are on the higher end of the scale given that the "natural" sex ratio at birth is often thought to be around 105 [@tde], and in Sub Saharan Africa it has been estimated to range from roughly 100 to 108 [@Garenne]. The observed sex ratios do not, however, seem high enough to necessarily indicate parents having a preference for boys and/or under-registration of girls.
+
+```{r "sex_ratio", message=FALSE, echo=FALSE, warning=FALSE, fig.cap= "Sex ratio for commune with more than 100 registered births"}
+
+icivil_sex_ratio <- icivil_data_18_03 %>%
+filter(lieu_naissance %in% c("OUAGADOUGOU", "FADA", 
+                             "KAYA", "NANORO", "NOUNA", "TENKODOGO")) %>%
+group_by(lieu_naissance, Sexe) %>%
+summarise(nombre = n()) %>%
+spread(Sexe, nombre) %>%
+mutate(sexe_ratio_1 = 100 * Masculin / Féminin) %>%
+mutate(Sexe_Ratio = ifelse(sexe_ratio_1 > 100, 
+                                          "More Males than Females",
+                                          "More Females than Males"))
+
+list_municipalities <- list("OUAGADOUGOU" = "Ouagadougou", 
+                            "FADA" = "Fada N'gourma", 
+                            "KAYA" = "Kaya",
+                            "NANORO" = "Nanoro", "NOUNA" = "Nouna", 
+                            "TENKODOGO" = "Tenkodogo")
+
+icivil_sex_ratio <- icivil_sex_ratio %>%
+rename(NAME_3 = lieu_naissance) %>%
+mutate_at("NAME_3", recode, !!!list_municipalities)
+
+icivil_sex_ratio %>%
+select(-Sexe_Ratio) %>%
+plyr::rename(c(  "NAME_3" = "Commune" , "Féminin" ="Female" , "Masculin" =  "Male" ,"sexe_ratio_1" =  "Sexe Ratio")) %>%
+kable(digits = 2, 
+        "latex",
+        booktabs = TRUE,
+        caption = "Sex Ratio in iCivil Pilot Sites") %>%
+  kable_styling(latex_options="scale_down")
+
+bf_rds_3 <- read_rds("/Users/ramoudaneorousannou/Downloads/gadm36_BFA_3_sf.rds")
+
+#st_crs(bf_rds_3 )
+
+bf_rds_3_no_geom <- st_set_geometry(bf_rds_3, NULL)
+
+
+bf_rds_3_1 <- bf_rds_3_no_geom %>%
+left_join(icivil_sex_ratio, by = "NAME_3")
+
+bf_rds_3 <- bf_rds_3 %>%
+select("NAME_3", "geometry")
+
+bf_rds_3 <- bf_rds_3_1 %>%
+left_join(bf_rds_3, by = "NAME_3" )
+
+ggplot(data = bf_rds_3, aes(fill = Sexe_Ratio)) +
+geom_sf(aes(geometry = geometry)) +
+  annotation_scale(location = "br", width_hint = 0.5) +
+  annotation_north_arrow(location = "br", height = unit(1, "cm"), which_north = "true", 
+                          pad_x = unit(0.5, "in"), pad_y = unit(0.5, "in"),
+                          style = north_arrow_fancy_orienteering) +
+  coord_sf(crs = st_crs(4326)) +
+  scale_fill_manual(values = c("#FFDB6D", "#00AFBB", "#999999")) 
+
+```
+
+
+* **_Age analysis_**
+
+```{r "mothers_age_at_birth", message=FALSE, echo=FALSE, warning=FALSE, fig.cap= "Adolescent Mothers by Commune"}
+
+# Function to calculate an exact whole number of years between two dates
+
+year.diff <- function(firstDate, secondDate) {
+  yearsdiff <- year(secondDate) - year(firstDate)
+  monthsdiff <- month(secondDate) - month(firstDate)
+  daysdiff <- day(secondDate) - day(firstDate)
+
+  if ((monthsdiff < 0) | (monthsdiff == 0 & daysdiff < 0)) {
+    yearsdiff <- yearsdiff - 1
+  }
+
+  yearsdiff
+}
+
+# Converting newborns' birth date as POSIXct object 
+
+icivil_data_18_03$date_naissance_enfant <- as.POSIXct(icivil_data_18_03$date_naissance_enfant)
+
+# mother's age at birth 
+icivil_data_18_03_age_mothers <- icivil_data_18_03 %>%
+filter(!is.na(declarant)) %>%
+mutate(age_mere = year.diff(date_naissance_mere, date_naissance_enfant))
+
+# adolescent mothers 
+
+icivil_data_18_03_underaged_mothers <- icivil_data_18_03_age_mothers %>%
+filter(age_mere < 20)
+
+
+# plotting the number of teenage mothers per municipality
+
+(plot_underaged_mothers <- 
+icivil_data_18_03_underaged_mothers %>%
+filter(age_mere > 10) %>%
+group_by(lieu_naissance) %>%
+count() %>%
+ggplot(aes(x = fct_reorder(lieu_naissance, n, .desc = T), y = n )) +
+geom_col(fill = "#00AFBB", colour = "black") +
+theme(plot.title = element_text(hjust = 0.5)) +
+labs(title = NULL, x = NULL, y = NULL)) #+
+#scale_y_continuous(breaks= seq(0, 10)))
+
+
+```
+
+* **_Pointblank validation: detect outliers_**
+
+```{r "data_validation_pointblank", message=FALSE, echo=FALSE, warning=FALSE, eval= FALSE, fig.cap= "Pointblank Validation"}
+
+al <- action_levels(warn_at = 1)
+
+pointblank <-
+create_agent(tbl = icivil_data_18_03_age_mothers, actions = al) %>%
+col_vals_lt(vars(age_mere), 20) %>%
+col_vals_gt(vars(age_mere), 50) %>%
+interrogate()
+
+pointblank
+
+```
+
+
+The pointblank package is a very easy tool to methodically validate data whether in the form of data frames or as database tables. In our case, we have set two preconditions for the variable "Age of mother" using `col_vals_lt(vars(age_mere), 20)` for any mother under 20 years of age at the time of birth and `col_vals_gt(vars(age_mere), 50)` for any mother over 50 years of age at the time of birth.
+Pointblank reveals a total of 85 adolescent mothers and 195 over 50 years of age at the time of birth (outliers). We noted several cases where the mother's date of birth was probably mistyped, resulting in mothers being under 10 years old and in some cases 105 years old. To prevent this from happening again, it would be a good idea to introduce limitations (constraints) in the iCivil mobile application.
+
+## Rate of birth certificate issuance
+
+
+For this analysis, we focus on cities which have more than 100 declared births such as OUAGADOUGOU (3650), KAYA (950), FADA (671), TENKODOGO (432), NOUNA (357), NANORO (303), KAMBOINCE (139). OUAGADOUGOU is particularly interesting because it has data over 4 years. We noticed that the lowest rate of birth certificate issuance is in FADA, yet the municipality has the 3rd highest number of registered births. Also, KAYA and NOUNA (two of the UNFPA pilot sites) show rather encouraging rates of birth certificate issuance rate after just two months, compared to that of OUAGADOUGOU which has had the system for 4 years. Birth certificate issuance rate by sex is more or less the same in most cities.
+
+
+```{r "declaration_by_sex_relevant_location", message=FALSE, echo=FALSE, warning=FALSE, fig.cap= "Birth Certificate Issuance for Communes with more than 100 Registered Births", fig.cap= "Birth Certificate Issuance for UNFPA Pilote Communes (within the legal time limit of 2 months)", fig.show="hold", out.width="50%"}
+
+icivil_data_18_03_declared_by_sex <- 
+icivil_data_18_03 %>%
+group_by(lieu_naissance, Sexe, !is.na(declarant)) %>%
+count() %>%
+rename(declaration = "!is.na(declarant)") %>%
+full_join(icivil_data_18_03_city_count, by = "lieu_naissance" )
+
+
+icivil_declaration_by_sex <-
+icivil_data_18_03_declared_by_sex %>%
+filter(declaration == T) %>%
+mutate(taux_declaration_sex = 100 *n / total_naissance)
+
+(plot_declarations_sex_relevant <- 
+ggplot(icivil_declaration_by_sex %>% 
+         filter(lieu_naissance %in%
+                  c("OUAGADOUGOU", "FADA", "KAMBOINCE",
+                    "KAYA", "NANORO", "NOUNA", "TENKODOGO")),
+       aes(x = fct_reorder(lieu_naissance, taux_declaration_sex), 
+           y = taux_declaration_sex, fill = Sexe)) +
+geom_col() +
+theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+labs(title = NULL, x = NULL, y = NULL))
+
+delivrance_unfpa <- icivil_declaration_by_sex %>% 
+  filter(lieu_naissance %in% c("KAYA", "NOUNA","NANORO", "SOAW","DOKUY", "BOURASSO")) %>%
+  rename(pourcentage_delivrance_acte_sex = taux_declaration_sex)
+
+
+(plot_issuance_sex_unfpa <- 
+ggplot(icivil_declaration_by_sex %>%
+         filter(lieu_naissance %in% c("KAYA", "NOUNA","NANORO", "SOAW","DOKUY", "BOURASSO")), 
+       aes(x = fct_reorder(lieu_naissance, taux_declaration_sex), 
+           y = taux_declaration_sex, fill = Sexe)) +
+geom_col() +
+theme(plot.title = element_text(hjust = 0.5)) +
+labs(title = NULL, x = NULL, y = NULL))
+
+```
+
+
+
+## Analysis of declarants by sex of declarant (and newborn)
+
+Births are generally declared by the father of the newborn, except in Nanoro, where 31 of 32 newborns were declared by their mothers. At the same time, Nanoro had the lowest birth certificate issuance rate among the three UNFPA pilot sites. This raises the question of whether fathers of newborns in Nanoro are less interested in declaring their children than those in Nouna and Kaya. This could serve as a hypothesis for the low birth certificate issuance rate in Nanoro. 
+
+```{r "declarers", message=FALSE, echo=FALSE, warning=FALSE, fig.cap= "Relationship of Declarants to the Newborn"}
+
+icivil_data_18_03_declarants <- icivil_data_18_03 %>%
+filter(!is.na(declarant)) %>%
+mutate(declarant = ifelse(grepl("petit frère père", declarant), "Uncle",
+       ifelse(grepl("grand père", declarant), "Grandfather",
+       ifelse(grepl("Grand-mère", declarant), "Grandmother",
+       ifelse(grepl("père", declarant),"Father",
+       ifelse(grepl("mère", declarant), "Mother",
+       ifelse(grepl("oncle", declarant), "Uncle",
+       ifelse(grepl("tante", declarant), "Aunt",
+       ifelse(grepl("soeur", declarant), "Elder Sister",
+       ifelse(grepl("grand frère", declarant), "Elder Brother", "Other")))))))))) 
+
+
+# Declararers by commune
+cbPalette <- 
+  c("#999999", "#56B4E9", "#E69F00", "#009E73", 
+    "#F0E442", "#0072B2", "#D55E00", "#CC6666", "#66CC99")
+
+(plot_icivil_data_18_03_declarants <- icivil_data_18_03_declarants %>%
+group_by(lieu_naissance, declarant) %>%
+count() %>%
+group_by(lieu_naissance) %>%
+mutate(total_declaration = sum(n)) %>%
+ggplot(aes(x = reorder(lieu_naissance, total_declaration), y = n, fill = declarant)) +
+geom_col() +
+theme(plot.title = element_text(hjust = 0.5)) +
+coord_flip() +
+scale_fill_manual(values = cbPalette) +
+labs(title = NULL, x = NULL, y = NULL))
+
+```
+
+
+
+Moreover, some variables are not properly recorded and this can cause real problems when analyzing them to produce vital statistics.
+
+
+
+\newpage
+# References
