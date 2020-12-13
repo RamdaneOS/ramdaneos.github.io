@@ -29,34 +29,35 @@ options(knitr.kable.NA = '')
 
 # Introduction 
 
-Civil registration and Vital Statistics systems (CRVS) are essential for monitoring progress on 67 Sustainable Development Goal (SDG) indicators and are directly linked to the achievement of 12 of the 17 SDGs. Civil registration is not only necessary to monitor the situation of women and children, but is also a form of protection as it ensures that individuals have a legal form of identification.
+Civil registration and Vital Statistics systems (CRVS) are essential for monitoring progress on 67 Sustainable Development Goal (SDG) indicators and are directly linked to the achievement of 12 of the 17 SDGs. Civil registration is not only necessary to continuously monitor the situation of women and children, but is also strengthens rights protections, facilitates socioeconomic opportunity, and provides proof of legal identity. 
+#move following para to intro
+#World Bank Group's 2018 ID4D Global Dataset generates an estimate that one billion people in the world do not have official proof of identity. Lack of ID pose barriers for individuals in accessing basic services, as well as for countries to efficiently deliver them. The data also reveals that, out of the 1 billion people without legal identity, most live in Sub-Saharan Africa, nearly half are under the national ID age of their country, and more than half are of lower to middle income backgrounds. In the interest of an effective and continued progress of closing the coverage gap, efficient and sustainable CRVS systems are acutely needed [@Desai].
 
-ConVERGE is an initiative of the United Nations Population Fund (UNFPA) supported by the Center of Excellence on CRVS of the International Development Research Centre (IDRC) which involves for its initial phase countries such as Benin, Burkina Faso, Congo (Brazzaville), Senegal, Morocco, Tunisia, Jordan, Colombia, Ecuador and Guatemala. Its main objective is to support beneficiary countries in improving their civil registration systems and the production of vital statistics, with a special focus on gender. The ConVERGE program is committed to supporting the process of modernising the Burkinabe civil registry system with the ultimate aim of routinely producing gender-specific vital statistics. This support is done upstream through research on the knowledge, practices and socio-cultural norms that determine the registration of vital events and downstream through financial and technical support for the process of modernising the civil registration system and producing vital statistics. 
+The ConVERGE Initiative supports the the strengthening of civil registration systems, with a special focus on inclusiveness, and seeks to build a gender-sensitive culture of vital statistics production, dissemination and usage. The initiative involves technical cooperation on CRVS systems in Benin, Burkina Faso, Congo (Brazzaville), Senegal, Morocco, Tunisia, Jordan, Colombia, Ecuador, Guatemala, Laos and Tajikistan. 
 
-Burkina Faso has resolutely turned towards modernizing its civil registration system through the use of ICTs, with a focus on birth registration. After having conducted an assessment of the modern civil registration systems already in use in the country, the government selected iCivil as the standard system to be rolled-out throughout its territory. iCivil is a suite of tools consisting of smartphones distributed in maternity wards, computers, printers and other registration tools installed in civil registration centers and a central server located at the Directorate-General for the Modernisation of Civil Registration (DGMEC) in the capital city which receives data from all over the country. Smartphones are used by health workers in maternity wards to systematically register births that take place on their premises, while computers installed in the civil registration centres makes it possible to print out the birth certificate. As for the server at DGMEC, it stores data that could be used to produce vital statistics.
+In Burkina Faso, through support from the ConVERGE Initiative and UNFPA Innovation Fund, UNFPA is supporting the modernization of the Burkinabe civil registry system.  This support entails research on the knowledge, practices and socio-cultural norms that facilitate the registration of vital events and financial and technical support to the Burkinabe civil registration and vital statistics authorities.
 
-It is widely accepted that Information and Communications Technology (ICT) solutions have the potential to provide transformative improvements in CRVS systems based on their ability to extend registration coverage, standardise, streamline and  accelerate civil registration and vital statistics processes, integrate data from multiple systems and securely store data at scale, all in a cost-effective way [@CRVSDGB]. However, the digitisation of a CRVS system is a long, multi-stage process which is supposed to comply with international standards and regulations in this field.
+Burkina Faso has resolutely turned towards modernizing its civil registration system through the use of information technology, with a focus on birth registration. After having conducted an assessment of different software options, the government selected iCivil as the standard system to be rolled-out throughout its territory. iCivil is a suite of tools consisting of smartphones distributed in maternity wards, computers, printers and other registration tools installed in civil registration centers and a central server located at the Directorate-General for the Modernisation of Civil Registration (DGMEC) in the capital city which receives data from all over the country. Smartphones are used by health workers in maternity wards to systematically notify births that take place on their premises, while computers at civil registration centres facilitate the registration and certification of the birth. As for the server at DGMEC, it stores data on which vital statistics are based.
 
-In order to support the government of Burkina Faso in modernizing its CRVS system, UNFPA financed the deployment of iCivil in a few pilot sites as part of its Innovation Fund. The ConVERGE team provided technical follow-up to DGMEC from the selection of the iCivil system by the government of Burkina Faso to its deployment and the training of health and civil registration professionals in its use in the pilot sites financed by the Innovation Fund. This report is therefore an attempt to assess the technology based on the field experiences of the ConVERGE team in order to better support the government in its quest to digitise the Burkinabe CRVS system. 
+Information and Communications Technology (ICT) solutions have the potential to provide transformative improvements in CRVS systems based on their ability to extend registration coverage, standardise, streamline and  accelerate civil registration and vital statistics processes. They can integrate data from multiple systems and securely store data at-scale, all in a cost-effective way [@CRVSDGB]. However, the digitisation of a CRVS system is a long, multi-stage process which is supposed to comply with international standards and regulations in this field.
+
+In order to support the government of Burkina Faso in modernizing its CRVS system, UNFPA has provided technical assistance to the Burkinabe government's expansion of their iCivil deployment into rural areas and  beyond birth registration.  iCivil and DGMEC have trained health and civil registration professionals in the use of iCivil at additional pilot sites. This report assesses the expansion of iCivil into rural Burkina Faso and its extension to beyond birth registration.  
 
 # Objectives
 
 The first objective of this report is :
 
-* To review the implementation of iCivil in Burkina Faso by looking at the:
+* To review the implementation of iCivil in Burkina Faso by reviewing the:
 
   * Expansion of iCivil to rural areas,
  
   * Expansion of iCivil to incorporate marriage and death registration,
  
-  * Potential to integrate iCivil data with social norms field research data. 
+  * Potential of  analysing iCivil data alongside of social norms field research findings. 
 
 * To Assess the completeness and quality of data collected through the iCivil platform,
   
-* To Assess the feasibility of producing vital statistics in line with the UN Principles and,
-  
-* To Provide recommendations on Vital Statistics Systems, Rev. 3, 2014
-
+* To Assess the feasibility of vital statistics production and dissemination, as per the UN Principlies on Vital Statistics Systems (Rev. 3, 2014).  
 
 ```{r "load_packages", message=FALSE, echo=FALSE, warning=FALSE}
 library(bookdown)    # Authoring technical documents
@@ -76,28 +77,33 @@ library(kableExtra)  # Produce complex tables
 
 # Technical Standards and Guidance on CRVS Digitization and Vital Statistics
 
-Much of the literature on civil registration tends to prioritize birth registration. However, civil registration includes many other types of vital events such as marriages, divorces and deaths. A comprehensive CRVS system is one that integrates all of these events and thus produces demographic data and statistics without the need for periodic surveys. In this report, we adopt the plethora of literature on the digitalization of birth registration while broadening the context to encompass marriage and death registration.
+Much of the literature on civil registration tends to prioritize birth registration. However, civil registration spans the entire life-course including marriages, divorces and deaths. A comprehensive CRVS system is one that encompasses all of these events and produces routine vital statistics on fertility, nuptiality, divorce, and mortality. In this report, we assess the iCivil expansion in relation to:
+* the established CRVS digitization framework and guidelines [INSERT Citations to CRVS digitization literature here]; and
+* the international standards on vital statistics production and dissemination [INSERT citation to UN.PRVS.Rev.3.2014]. 
 
-World Bank Group's 2018 ID4D Global Dataset generates an estimate that one billion people in the world do not have official proof of identity. Lack of ID pose barriers for individuals in accessing basic services, as well as for countries to efficiently deliver them. The data also reveals that, out of the 1 billion people without legal identity, most live in Sub-Saharan Africa, nearly half are under the national ID age of their country, and more than half are of lower to middle income backgrounds. In the interest of an effective and continued progress of closing the coverage gap, efficient and sustainable CRVS systems are acutely needed [@Desai].
-
-The Sustainable Development Goals (SDGs) include a dedicated target (16.9) on birth registration under Goal 16: provide legal identity for all, including birth registration, by 2030. This target is complemented by Goal 17.9, which calls for support to build statistical capacity to establish strong national vital registration systems. UNICEF estimates that an average of one in four children under five (166 million) is not registered. And even when they are, they may not have proof of registration, bringing to 237 million the number of children under five worldwide who do not have a birth certificate. Increasing levels of birth registration will therefore not be enough to solve this problem. Steps must also be taken to strengthen the quality of civil registration systems in order to achieve universal coverage, continuity, confidentiality and regular dissemination of data [@Unicef].
-
-The third revision of Principles and Recommendations for a Vital Statistics System provides guidance on establishing a functioning system for collecting, processing and disseminating vital statistics; improving sources of vital statistics, focusing primarily on the civil registration system and its components. It presents vital statistics and civil registration as separate entities that should be components of a coordinated and coherent system for registering and producing vital statistics. It recommends that equal importance must be given to recording births and deaths as a legal exercises and for vital statistics production. In addition, there should be a smooth interconnection between civil registration and contemporary identity management systems to add more dimension to the structure and functioning of the civil registration and vital statistics system [@UNDESA].
-
-In the same vein, the African Programme for the Accelerated Improvement of Civil Registration and Vital Statistics (APAI-CRVS) distingishes three main stages for the impletation of a CRVS digitazation process. The preparation phase should serve to define a long term vision and to develop a business case for CRVS digitization. The analysis and design phase is where all assessment are made and system requirements are defined. The implementation planning phase is used to document the CRVS digitization implementation plan, to procure the digital CRVS system and address all management-related issues [@CRVSDGB]. Even with all of these steps, it is still necessary to have standards for the type of ICT technology to be deployed.
-
-The Inter-American Development Bank (IDB) and United Nations Children’s Fund (UNICEF) have identified a knowledge gap between the need and the capacity to design, develop, install, and operate ICT systems that will make vital events registration process more efficient and secure. From a technological perspective, this analysis focuses on three main elements: database structure and semantics, system backup, encryption and network security.
-UNICEF and the IDB suggest that access to registry data should be limited even to the database administrator and recommend two potential alternatives for the database structure: (i) one record for all data, or (ii) multiple records for different types of data sets. Particular attention should be paid to the computational efficiency of the models, as databases can become very slow. It is also important to establish and maintain various backups to restore operations in the event of an ICT system failure. Both "at rest" and "in motion" data (data that is transferred through local and wide area networks) must be protected against unauthorized real-time interception, alteration or deletion by means of encryption. Standard encryption software must be used for data “in motion”. WiFi networks must be encrypted using up-to-date software. For the security of the system, a parallel protected guest WiFi network should be made available for visitors requiring regular changes of access passwords. Access to the registry's main ICT network should be restricted to authorized personnel, at the exclusion of external parties [@UnicefIDB]. 
-
+## CRVS Digitization
+#The Inter-American Development Bank (IDB) and United Nations Children’s Fund (UNICEF) have identified a knowledge gap between the need and the capacity to design, develop, install, and operate ICT systems that will make vital events registration process more efficient and secure. From a technological perspective, this analysis focuses on three main elements: database structure and semantics, system backup, encryption and network security.
+#UNICEF and the IDB suggest that access to registry data should be limited even to the database administrator and recommend two potential alternatives for the database structure: (i) one record for all data, or (ii) multiple records for different types of data sets. Particular attention should be paid to the computational efficiency of the models, as databases can become very slow. It is also important to establish and maintain various backups to restore operations in the event of an ICT system failure. Both "at rest" and "in motion" data (data that is transferred through local and wide area networks) must be protected against unauthorized real-time interception, alteration or deletion by means of encryption. Standard encryption software must be used for data “in motion”. WiFi networks must be encrypted using up-to-date software. For the security of the system, a parallel protected guest WiFi network should be made available for visitors requiring regular changes of access passwords. Access to the registry's main ICT network should be restricted to authorized personnel, at the exclusion of external parties [@UnicefIDB]. 
 
 The use of ICT may assist in making birth registration timely, continuous, and permanent. It allows for quicker communication between the place of birth and the registry; and allows for records to be stored digitally rather than in paper form, which may be more easily destroyed and may make the capacity to retrieve records difficult. While ICT offers many possibilities to improve registration, the driving force should be on institutional and administrative capacity building on the supply side, and on raising awareness on the demand side. There is unanimous agreement that the foundation for upgrading the civil registration system should be the legal framework. A special attention should be paid to the privacy and confidentiality of the individual’s personal information and the conditions under which data will be verified or authenticated and can be shared. There is broad consensus that communication is key to success when a new way of doing things is introduced. People need to be comfortable with the changes and understand how these are managed. The presentation and implementation of ICT systems for vital events registration should be carefully considered in terms of the socio-cultural context of the society and the changing nature of the family and its dynamics, as well as the increasing need for interoperability between public organizations [@UnicefIDB]. 
+
+In the same vein, the African Programme for the Accelerated Improvement of Civil Registration and Vital Statistics (APAI-CRVS) distingishes three main stages for the implementation of a CRVS digitazation process. The preparation phase should serve to define a long term vision and to develop a business case for CRVS digitization. The analysis and design phase is where all assessment are made and system requirements are defined. The implementation planning phase is used to document the CRVS digitization implementation plan, to procure the digital CRVS system and address all management-related issues [@CRVSDGB]. Even with all of these steps, it is still necessary to have standards for the type of ICT technology to be deployed.
+
+## Vital Statistics 
+
+The United Nations Principles and Recommendations for a Vital Statistics System (Rev.3, 2014) provides guidance on
+* establishing a functioning system for collecting, processing and disseminating vital statistics; and 
+* improving sources of vital statistics, focusing primarily on the civil registration system and its components. 
+It presents vital statistics and civil registration as separate entities that should be components of a coordinated and coherent system for registering and producing vital statistics. It recommends that equal importance must be given to recording different vital events (i.e. births, marriages, divorces, and deaths) as legal exercises and for vital statistics production. In addition, there should be a smooth connection between civil registration and contemporary identity management systems to facilitate universal legal identity for all across the life course [@UNDESA].
+
+These technical standards on vital statistics systems specify the minimum standards for regular, annual vital statistics outputs and tabulations. In particular 43 basic vital tabulations, spanning live births, foetal deaths, abortions, marriages, divorces, and deaths, are specified. These tabulations outline the core areas of vital statistics reporting and the key disaggreggations that a national vital statistics system is expected to produce and disseminate. In the following sections we evaluate the iCivil implementation in Burkina Faso against these vita statistics standards.
 
 # Review of iCivil Implementation in Burkina Faso
 
 ## Expansion from urban to rural areas
 
 The first uses of iCivil date back to 2015 in a clinic in the capital city, Ouagadougou. The mobile application could then only register births. Although the mobile application is now capable of registering marriages and deaths, it is still largely used for birth registration.  
-In its current version, iCivil has a mobile application for systematic birth registration that uses encrypted SMS messages. Information on each newborn is sent by SMS from the iCivil smartphone of the duly authorized health professional, after coupling to a unique and forgery-proof identifier/authentifier called ''Bubble Tag'' . The SMS is received instantly on the server of DGMEC. The SMS/Bubble Tag couple automatically fills in a birth form that is ready to be printed and signed by the competent authority. iCivil is now operational in 09 communes and is being installed in 06 other communes \@ref(fig:intro). Of the 09 operational communes, UNFPA financed the roll-out of iCivil  in six communes  \@ref(fig:load_icivil_data). Installing the iCivil system is a two-step process. The first step is to equip the maternity wards with smartphones containing the iCivil mobile application as well as the wristbands and ID cards that will be used to identify each newborn. Next, the local civil registration center receives a computer, a printer and other accessories to identify newborns’ ID cards and to print the corresponding birth certificate.  
+In its current version, iCivil has a mobile application for systematic birth registration that uses encrypted SMS messages. Information on each newborn is sent by SMS from the iCivil smartphone of the duly authorized health professional, after coupling to a unique and forgery-proof identifier/authentifier called ''Bubble Tag'' . The SMS is received instantly on the server of DGMEC. The SMS/Bubble Tag couple automatically fills in a birth form that is ready to be printed and signed by the competent authority. iCivil is now operational in 09 communes and is being installed in 06 other communes \@ref(fig:intro). Of the 09 operational communes, UNFPA financed the roll-out of iCivil  in six communes  \@ref(fig:load_icivil_data). Installing the iCivil system is a two-step process. The first step is to equip the maternity wards with smartphones containing the iCivil mobile application as well as the wristbands and ID cards that will be used to identify each newborn. Next, the local civil registration center receives a computer, a printer and other accessories to identify newborns’ ID cards and to print the corresponding birth certificate. 
 
 
 ```{r "intro", message=FALSE, echo=FALSE, warning=FALSE, fig.cap="Presence of iCivil in the communes of Burkina Faso"}
@@ -262,28 +268,9 @@ It should be noted, however, that with correct and accurate registration of data
 
 # Assessment of CRVS Digitization Process
 
-## Management and physical hosting of digital equipments
 
-The iCivil ecosystem consists of a server housed in the DGMEC premises and several smartphones in the maternity wards and other IT devices in civil registration centers.
+##Ramoudane to added new content here
 
-* **The server**
-
-The physical server of icivil is housed in a room of the DGMEC, the server is connected to a computer screen and a connection modem that allows the reception of data. It is located in a ventilated and air-conditioned room where access is restricted to authorized personnel only.  The server does not yet have a backup on another governmental site or on a government-owned cloud. Arrangements are being made by the government of Burkina Faso to provide a governmental cloud storage for iCivil registration data as suggested by an expert assessment report conducted by ECA. Plans to secure the current server room with a smoke detector and a fire extinguisher are also in sight.  
-
-* **Equipments and tools in maternity wards and civil registration centers**
-
-The safety of equipment in civil registration centers and maternity wards remains a delicate issue. During the training of health and civil registration workers in the use of iCivil, much emphasis was placed on the fragile nature of the iCivil tools handed to them and an appeal was made to their sense of responsibility to ensure the sustainable use of those tools. In some cases, the HDSS sites as close collaborators have been called upon to monitor the equipment until the DGMEC has the means to ensure systematic monitoring of the physical tools. Meanwhile, the reception or not of data on the DGMEC server makes it possible to know the operational centers and to remotely monitor zether or not an equipment is still functioning. 
-
-## Software ownership 
-
-Although the government of Burkina Faso has already acquired a iCivil license, it does not yet have the source code for the application, which remains under the control of the iCivil company. This could represent an obstacle to future development needs of the application to add new features or services. 
-We could not get access to the details on the initial agreement between the Burkinabe government and iCivil (the company) because that is what defines the terms of use. 
-However, the ultimate goal for the government should be to receive the source code from iCivil or, have it sent to a third party under well-defined legal conditions. 
-The debate on the ownership of the system remains open between the two parties, the real fear being that if iCivil (the company) was to disappear, the government would be forced to change its registration system with all the costs this would entail. 
-
-## Cost of deployment of iCivil for primary and secondary registration centers
-
-iCivil is deployed with a batch of ID cards (with unique identifiers) and wristbands for registering vital events. When the initial batch offered by UNFPA is exhausted, the DGMEC is responsible for purchasing additional inputs from the company to equip the centers in need. DGMEC is yet to find funding to guarantee the availability of sufficient quantities of these inputs to avoid stock shortages. With iCivil, it costs more or less 1 USD to issue a single birth certificate (including the cost of ID cards and the wristbands) and the monopoly of the production of the necessary inputs is held by iCivil.  The sustainability of the system will therefore largely depend on their availability. 
 
 # Assessment of iCivil data vis-a-vis Vital Statistics Standards
  
@@ -615,6 +602,32 @@ labs(title = NULL, x = NULL, y = NULL))
 
 
 Moreover, some variables are not properly recorded and this can cause real problems when analyzing them to produce vital statistics.
+
+
+# Conclusions and Recommendations
+
+## Management and physical hosting of digital equipments
+
+The iCivil ecosystem consists of a server housed in the DGMEC premises and several smartphones in the maternity wards and other IT devices in civil registration centers.
+
+* **The server**
+
+The physical server of icivil is housed in a room of the DGMEC, the server is connected to a computer screen and a connection modem that allows the reception of data. It is located in a ventilated and air-conditioned room where access is restricted to authorized personnel only.  The server does not yet have a backup on another governmental site or on a government-owned cloud. Arrangements are being made by the government of Burkina Faso to provide a governmental cloud storage for iCivil registration data as suggested by an expert assessment report conducted by ECA. Plans to secure the current server room with a smoke detector and a fire extinguisher are also in sight.  
+
+* **Equipments and tools in maternity wards and civil registration centers**
+
+The safety of equipment in civil registration centers and maternity wards remains a delicate issue. During the training of health and civil registration workers in the use of iCivil, much emphasis was placed on the fragile nature of the iCivil tools handed to them and an appeal was made to their sense of responsibility to ensure the sustainable use of those tools. In some cases, the HDSS sites as close collaborators have been called upon to monitor the equipment until the DGMEC has the means to ensure systematic monitoring of the physical tools. Meanwhile, the reception or not of data on the DGMEC server makes it possible to know the operational centers and to remotely monitor zether or not an equipment is still functioning. 
+
+## Software ownership 
+
+Although the government of Burkina Faso has already acquired a iCivil license, it does not yet have the source code for the application, which remains under the control of the iCivil company. This could represent an obstacle to future development needs of the application to add new features or services. 
+We could not get access to the details on the initial agreement between the Burkinabe government and iCivil (the company) because that is what defines the terms of use. 
+However, the ultimate goal for the government should be to receive the source code from iCivil or, have it sent to a third party under well-defined legal conditions. 
+The debate on the ownership of the system remains open between the two parties, the real fear being that if iCivil (the company) was to disappear, the government would be forced to change its registration system with all the costs this would entail. 
+
+## Cost of deployment of iCivil for primary and secondary registration centers
+
+iCivil is deployed with a batch of ID cards (with unique identifiers) and wristbands for registering vital events. When the initial batch offered by UNFPA is exhausted, the DGMEC is responsible for purchasing additional inputs from the company to equip the centers in need. DGMEC is yet to find funding to guarantee the availability of sufficient quantities of these inputs to avoid stock shortages. With iCivil, it costs more or less 1 USD to issue a single birth certificate (including the cost of ID cards and the wristbands) and the monopoly of the production of the necessary inputs is held by iCivil.  The sustainability of the system will therefore largely depend on their availability. 
 
 
 
