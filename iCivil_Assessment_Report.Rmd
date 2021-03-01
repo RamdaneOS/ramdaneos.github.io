@@ -413,8 +413,7 @@ checklist
 ## Adequacy of variables collected/digitized in iCivil platform
 
 
-On birth registration, iCivil collects many essential information on newborns, their mothers and fathers and birthplaces. Our evaluation shows that out of the 20 types of vital statistics tables on live births recommended by the third revision of UN Principles and Recommendations for a Vital Statistics System, five can be produced via  the current digitized CRVSSystem in Burkina Faso [@UNDESA, p 153-200] (see table 5 in Appendix). The current system supports the production of vital statistics on live births disaggregated by sex of the child, age of the mother/father, place of registration vs. place of occurrence, and facility site of live birth. However, it does not incorporate the routine collection and storage of live births data on usual place of residence, marital status of the mother, live-birth order, birth spacing duration between current birth and previous birth, legitimacy status, educational attainment of mother, gestational age, and time at which prenatal care commenced. Such data are required to produce the remaining 15 vital statistics outputs/tabulations as per the UN Principles and Recommendations on Vital Statistics Systems, Rev. 3. 
-For the registration of marriages and deaths, the types of variables that are collected have not been shared with UNFPA so we are unable to assess their adequacy.
+On birth registration, iCivil collects many essential information on newborns, their mothers and fathers and birthplaces. Our evaluation shows that out of the 20 types of vital statistics tables recommended by the third revision of UN Principles and Recommendations for a Vital Statistics System, five can be produced via  the current CRVS Digital System in Burkina Faso [@UNDESA, p 153-200] (see table 5 in Appendix). For the registration of marriages and deaths, the types of variables that are collected have not been shared with UNFPA so we are unable to assess their adequacy.
 According to the third revision of UN Principles and Recommendations for a Vital Statistics System, the registration of a vital event can be by the place of occurrence or by the place of usual residence. iCivil has adopted the registration by the place of occurrence. However, given the current security situation in Burkina Faso, with a large number of internal displacements of the population (especially from the Sahel region), it would be important to add a variable on the usual place of residence for analysis and planning purposes. 
 Additionally, since the registration (especially for birth) is done in two steps, it would be important to add a variable on the day the birth certificate was issued. This would make it possible to evaluate the percentage of registrations within the legal deadlines and the time taken between the birth notification step and the birth registration/certification step. 
 
@@ -751,7 +750,7 @@ labs(title = NULL, x = NULL, y = "Number of Declarations Made"))
 
 
 \newpage
-# Conclusions
+# Conclusion
 
 In this report we have reviewed the pilot introduction of digitization/modernization into the civil registration system of Burkina Faso. The main conclusions from this assessment are:
 
