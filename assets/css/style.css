@@ -343,6 +343,7 @@ span.pub-title { cursor: default; }
 	background-color: var(--rust);
 }
 .exp-bullets-extra { margin-top: .6rem; }
+.exp-bullets-extra[hidden] { display: none; }
 
 .exp-toggle {
 	display: inline-flex;
