@@ -139,6 +139,15 @@ ul, ol { list-style: none; }
 	background-color: var(--rust);
 	margin-bottom: 2rem;
 }
+.hero-tagline {
+	max-width: 560px;
+	font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+	font-style: italic;
+	font-weight: 500;
+	line-height: 1.5;
+	color: rgba(247,243,236,.9);
+	margin-bottom: 1.5rem;
+}
 .hero-bio {
 	max-width: 600px;
 	font-size: 1rem;
