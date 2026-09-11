@@ -342,6 +342,26 @@ span.pub-title { cursor: default; }
 	width: 5px; height: 5px;
 	background-color: var(--rust);
 }
+.exp-bullets-extra { margin-top: .6rem; }
+
+.exp-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: .4rem;
+	margin-top: 1rem;
+	padding: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-family: var(--font-body);
+	font-size: .78rem;
+	font-weight: 500;
+	letter-spacing: .04em;
+	color: var(--rust);
+}
+.exp-toggle:hover { color: var(--rust-hover); }
+.exp-toggle-icon { transition: transform .2s ease; }
+.exp-toggle[aria-expanded="true"] .exp-toggle-icon { transform: rotate(180deg); }
 
 /* Advisory & Engagements compact sub-list */
 .advisory-heading {

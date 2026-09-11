@@ -12,6 +12,19 @@
 		observer.observe(el);
 	});
 
+	document.querySelectorAll('.exp-toggle').forEach(function (btn) {
+		var target = document.getElementById(btn.getAttribute('aria-controls'));
+		var label = btn.querySelector('.exp-toggle-label');
+		var moreText = label.textContent;
+		if (!target) return;
+		btn.addEventListener('click', function () {
+			var expanded = btn.getAttribute('aria-expanded') === 'true';
+			target.hidden = expanded;
+			btn.setAttribute('aria-expanded', String(!expanded));
+			label.textContent = expanded ? moreText : 'Show less';
+		});
+	});
+
 	var nav = document.getElementById('site-nav');
 	window.addEventListener('scroll', function () {
 		if (window.scrollY > 60) {
